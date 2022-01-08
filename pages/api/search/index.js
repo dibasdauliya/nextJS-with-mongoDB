@@ -1,7 +1,7 @@
-import nc from 'next-connect'
+const nc = require('next-connect')
 const { default: Product } = require('../../../models/Products')
 
-import { connect, disconnect } from '../../../utils/db'
+const { connect, disconnect } = require('../../../utils/db')
 
 const search = nc()
 
@@ -82,7 +82,7 @@ search.get(async (req, res) => {
   } catch (e) {
     res.status(500).send({ message: e.message })
   }
-  res.send({ message: 'seeded successfully' })
+  //   res.send({ message: 'seeded successfully' })
 })
 
 export default search
