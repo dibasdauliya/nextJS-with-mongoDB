@@ -17,6 +17,7 @@ export default function Orders({ user }) {
 
   async function handleDelete(idd) {
     const filter = data.filter(({ id }) => id !== idd)
+    setData(filter)
     try {
       const { data } = await axios.put('/api/users/deleteData', {
         orderItems: filter,
@@ -25,7 +26,6 @@ export default function Orders({ user }) {
     } catch (error) {
       console.error(error)
     }
-    setData(filter)
   }
 
   return (

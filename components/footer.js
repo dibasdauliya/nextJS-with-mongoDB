@@ -27,7 +27,7 @@ export default function Footer() {
             .
           </p>
           <p className='flex gap-4'>
-            <OutLink link='https://github.com/dibasdauliya'>
+            <OutLink link='https://github.com/dibasdauliya/dm-store'>
               <span className='flex items-center gap-2'>
                 <FaGithub /> GitHub
               </span>
