@@ -5,7 +5,7 @@ import Container from '../components/container'
 import Footer from '../components/footer'
 import Navbar from '../components/navbar'
 import { getFilteredProducts } from '../utils/getData'
-import src from '../public/img/unsplash.jpg'
+import src from '../public/img/winter.jpg'
 
 export default function Home({ winterData, allData }) {
   return (
@@ -21,7 +21,7 @@ export default function Home({ winterData, allData }) {
         <div className='w-full h-96 overflow-hidden'>
           <Image
             width='2500px'
-            height='384px'
+            height='404px'
             layout='fixed'
             src={src}
             alt=''
@@ -31,9 +31,9 @@ export default function Home({ winterData, allData }) {
           />
         </div>
         <div className='overflow-hidden absolute inset-0 h-full bg-black bg-opacity-20'>
-          <div className='container max-w-[1300px] mx-auto p-3 flex flex-col justify-center h-full'>
+          <div className='container max-w-[1300px] mx-auto p-3 flex flex-col justify-center h-full text-shadow'>
             <h1 className='text-white text-4xl lg:text-5xl font-bold'>
-              <span className='text-violet-600'>DM</span> Store - All In One
+              <span className='text-violet-500'>DM</span> Store - All In One
             </h1>{' '}
             <p className='text-white mt-4 text-xl lg:text-xl max-w-3xl'>
               Hoodie? Jacket? Scarf? Shoes? Shocks? We got you covered!
