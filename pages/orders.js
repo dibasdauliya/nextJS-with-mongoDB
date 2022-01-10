@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -30,6 +31,9 @@ export default function Orders({ user }) {
 
   return (
     <>
+      <Head>
+        <title>Order(s)</title>
+      </Head>
       <Navbar />
 
       <Container>
@@ -42,7 +46,7 @@ export default function Orders({ user }) {
         </Link>
         <section className='grid grid-cols-1 lg:grid-cols-[minmax(0,75%),25%] mb-12 gap-10 min-h-[50vh]'>
           <main className='mt-8'>
-            <h1 className='text-2xl lg:text-3xl mb-10 font-bold'>Orders</h1>
+            <h1 className='text-2xl lg:text-3xl mb-10 font-bold'>Order(s)</h1>
 
             <div className='grid gap-5'>
               {data[0] !== null && data.length ? (

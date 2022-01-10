@@ -66,13 +66,16 @@ export default function SearchOverlay({ handleClick }) {
   })
 
   async function handleOnChange(e) {
-    setQuery(e.target.value)
+    const { value } = e.target
+    setQuery(value)
 
     // to make to load ahead of time (4)
+    if (value.length > 3) {
+      setData([{ title: 'Loading...' }])
+    }
     try {
-      const { data } = await axios.get(`/api/search?term=${query}`)
+      const { data } = await axios.get(`/api/search?term=${value}`)
       setData(data)
-      console.log(data)
     } catch (error) {
       console.error(error)
     }

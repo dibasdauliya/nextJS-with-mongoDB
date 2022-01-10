@@ -11,7 +11,7 @@ export default function Home({ winterData, allData }) {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>DM - Store</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 

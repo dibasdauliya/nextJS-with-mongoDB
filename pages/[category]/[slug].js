@@ -12,6 +12,7 @@ import Product from '../../models/Products'
 import { connect, convertDocToObj, disconnect } from '../../utils/db'
 import { getProducts } from '../../utils/getData'
 import { v4 as uuidv4 } from 'uuid'
+import Head from 'next/head'
 
 export default function Slug({ product }) {
   const [quantity, setQuantity] = useState(1)
@@ -53,6 +54,9 @@ export default function Slug({ product }) {
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Navbar />
       <Container>
         <Link href='/'>
@@ -79,7 +83,7 @@ export default function Slug({ product }) {
               <div className='grid gap-2'>
                 <FlexParagraph>
                   <span>Price per piece:</span>
-                  <span>${price}</span>
+                  <span>${parseInt(price).toLocaleString()}</span>
                 </FlexParagraph>
                 <FlexParagraph>
                   Quantity:
