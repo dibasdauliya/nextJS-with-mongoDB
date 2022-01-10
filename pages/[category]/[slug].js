@@ -71,7 +71,7 @@ export default function Slug({ product }) {
             <h1 className='text-2xl lg:text-3xl mb-10 font-bold'>{title}</h1>
             <Image
               className='rounded-sm'
-              width={600}
+              width={450}
               height={450}
               src={image}
               // layout='responsive'
