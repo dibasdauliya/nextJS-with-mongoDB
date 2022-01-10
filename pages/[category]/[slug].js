@@ -70,10 +70,12 @@ export default function Slug({ product }) {
           <main className='mt-8'>
             <h1 className='text-2xl lg:text-3xl mb-10 font-bold'>{title}</h1>
             <Image
-              className='object-cover rounded-sm'
+              className='rounded-sm'
               width={600}
               height={450}
               src={image}
+              // layout='responsive'
+              objectFit='contain'
             />
             <p className='mt-10 text-base lg:text-xl'>{description}</p>
           </main>

@@ -11,7 +11,7 @@ export default function Card({ image, title, price, link }) {
           src={image || 'https://unsplash.it/300'}
           width={400}
           height={400}
-          className='object-cover'
+          objectFit='contain'
           alt=''
         />
         <div className='mt-2'>
