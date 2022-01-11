@@ -29,7 +29,8 @@ export default function Slug({ product }) {
     price,
     slug,
     category,
-    id: uuidv4()
+    id: uuidv4(),
+    delivered: false
   }
 
   async function sendOrder() {
@@ -172,8 +173,6 @@ export async function getStaticProps({ params }) {
 
   await connect()
   const product = await Product.findOne({ slug }).lean()
-  const categoryProduct = await Product.find({ category }).lean()
-  const products = await Product.find({}).lean()
 
   await disconnect()
   return {

@@ -51,7 +51,16 @@ export default function Orders({ user }) {
             <div className='grid gap-5'>
               {data[0] !== null && data.length ? (
                 data?.map(
-                  ({ title, image, price, quantity, slug, category, id }) => (
+                  ({
+                    title,
+                    image,
+                    price,
+                    quantity,
+                    slug,
+                    category,
+                    id,
+                    delivered
+                  }) => (
                     <div
                       key={id}
                       className='flex gap-4 p-3 border border-gray-300 rounded-sm'
@@ -71,22 +80,24 @@ export default function Orders({ user }) {
                           />
                         </a>
                       </Link>
-                      <div className='grid gap-1 self-start'>
+                      <div className='grid gap-1 self-start font-semibold'>
                         <Link
                           href={`/${category
                             .split(' ')
                             .join('-')
                             .toLowerCase()}/${slug}`}
                         >
-                          <a className='hover:underline font-semibold max-w-[18ch] lg:max-w-[60ch]'>
+                          <a className='hover:underline max-w-[18ch] lg:max-w-[60ch]'>
                             {title}
                           </a>
                         </Link>
-                        <span className='font-semibold'>
-                          Quantity: {quantity}
-                        </span>
-                        <span className='font-semibold'>
+                        <span>Quantity: {quantity}</span>
+                        <span>
                           Price: ${(quantity * price).toLocaleString() || ''}
+                        </span>
+                        <span>
+                          Delivery status:{' '}
+                          {delivered ? 'Delivered' : 'Not Delivered'}
                         </span>
                       </div>
                       <button

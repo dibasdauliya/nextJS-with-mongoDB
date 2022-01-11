@@ -44,4 +44,13 @@ async function getUserData() {
   }
 }
 
-export { getFilteredProducts, getProducts, getUserData }
+async function getAllUsers() {
+  await connect()
+  const user = await User.find({}).lean()
+
+  await disconnect()
+
+  return user
+}
+
+export { getFilteredProducts, getProducts, getUserData, getAllUsers }
