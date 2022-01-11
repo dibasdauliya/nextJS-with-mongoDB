@@ -21,7 +21,7 @@ export default function Footer() {
           <p>
             <span className='font-semibold'>DM Store</span>{' '}
             {new Date().getFullYear()}. Developed by{' '}
-            <OutLink link='https://twitter.com/dibasdauliya33'>
+            <OutLink link='https://github.com/dibasdauliya'>
               Dibas Dauliya
             </OutLink>
             .
