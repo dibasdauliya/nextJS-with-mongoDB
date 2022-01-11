@@ -19,7 +19,9 @@ export default function Footer() {
         </div>
         <div className='flex gap-4 flex-wrap justify-between'>
           <p>
-            <span className='font-semibold'>DM Store</span>{' '}
+            <span className='font-semibold' title='Dev.to & MongoDB Store'>
+              DM Store
+            </span>{' '}
             {new Date().getFullYear()}. Developed by{' '}
             <OutLink link='https://github.com/dibasdauliya'>
               Dibas Dauliya

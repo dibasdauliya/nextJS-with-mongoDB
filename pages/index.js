@@ -33,7 +33,10 @@ export default function Home({ winterData, allData }) {
         <div className='overflow-hidden absolute inset-0 h-full bg-black bg-opacity-20'>
           <div className='container max-w-[1300px] mx-auto p-3 flex flex-col justify-center h-full text-shadow'>
             <h1 className='text-white text-4xl lg:text-5xl font-bold'>
-              <span className='text-violet-500'>DM</span> Store - All In One
+              <span className='text-violet-500' title='Dev.to & MongoDB'>
+                DM
+              </span>{' '}
+              Store - All In One
             </h1>{' '}
             <p className='text-white mt-4 text-xl lg:text-xl max-w-3xl'>
               Hoodie? Jacket? Scarf? Shoes? Shocks? We got you covered!

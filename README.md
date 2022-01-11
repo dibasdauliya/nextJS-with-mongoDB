@@ -2,6 +2,7 @@
 
 - [Project for MongoDB Atlas Hackathon on DEV](https://dev.to/devteam/announcing-the-mongodb-atlas-hackathon-on-dev-4b6m)
 - [Hosted on Vercel](https://vercel.com/)
+- Read more about this project at Dev.to
 
 ## Steps to Run the Website
 
