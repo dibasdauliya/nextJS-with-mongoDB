@@ -81,7 +81,7 @@ export default function Slug({ product }) {
             <p className='mt-10 text-base lg:text-xl'>{description}</p>
           </main>
           <aside className='self-start'>
-            <div className='border border-violet-600 p-3 w-94'>
+            <div className='border border-violet-600 rounded-sm p-3 w-94'>
               <h3 className='font-semibold text-xl mb-2'>Checkout</h3>
               <div className='grid gap-2'>
                 <FlexParagraph>
@@ -129,7 +129,7 @@ export default function Slug({ product }) {
               )}
             </div>
 
-            <div className='border border-violet-600 p-3 w-94 mt-4'>
+            <div className='border border-violet-600 rounded-sm p-3 w-94 mt-4'>
               <h3 className='font-semibold text-xl mb-2'>Your Details</h3>
               <div className='grid gap-2'>
                 <FlexParagraph>

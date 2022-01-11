@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Container from '../components/container'
+import Footer from '../components/footer'
 import { convertDocToObj } from '../utils/db'
 import { getAllUsers } from '../utils/getData'
 
@@ -86,53 +87,59 @@ export default function Admin({ data }) {
           <h1 className='text-3xl font-bold'>Admin Panel</h1>
           <strong>Total User(s): {data?.length}</strong>
         </header>
-        {data?.map(({ address, email, name, orderItems, _id }) => (
-          <main className='border border-gray-200 p-3 my-4' key={_id}>
-            <div className='mb-4'>
-              <ul className='font-semibold'>
-                <li>Name: {name}</li>
-                <li>Email: {email}</li>
-                <li>Location: {address}</li>
-              </ul>
-            </div>
-            <h2 className='text-2xl font-bold'>Orders</h2>
+        <section className='min-h-[60vh]'>
+          {data?.map(({ address, email, name, orderItems, _id }) => (
+            <main
+              className='border border-gray-300 p-3 my-4 rounded-sm'
+              key={_id}
+            >
+              <div className='mb-4'>
+                <ul className='font-semibold'>
+                  <li>Name: {name}</li>
+                  <li>Email: {email}</li>
+                  <li>Location: {address}</li>
+                </ul>
+              </div>
+              <h2 className='text-2xl font-bold'>Orders</h2>
 
-            <div className='grid gap-5 my-6'>
-              {orderItems?.map(
-                (
-                  {
-                    title,
-                    image,
-                    price,
-                    quantity,
-                    slug,
-                    category,
-                    id,
-                    delivered
-                  },
-                  idx
-                ) => {
-                  return (
-                    <Orders
-                      title={title}
-                      image={image}
-                      price={price}
-                      quantity={quantity}
-                      slug={slug}
-                      category={category}
-                      id={id}
-                      delivered={delivered}
-                      _id={_id}
-                      idx={idx}
-                      key={id}
-                    />
-                  )
-                }
-              )}
-            </div>
-          </main>
-        ))}
+              <div className='grid gap-5 my-6'>
+                {orderItems?.map(
+                  (
+                    {
+                      title,
+                      image,
+                      price,
+                      quantity,
+                      slug,
+                      category,
+                      id,
+                      delivered
+                    },
+                    idx
+                  ) => {
+                    return (
+                      <Orders
+                        title={title}
+                        image={image}
+                        price={price}
+                        quantity={quantity}
+                        slug={slug}
+                        category={category}
+                        id={id}
+                        delivered={delivered}
+                        _id={_id}
+                        idx={idx}
+                        key={id}
+                      />
+                    )
+                  }
+                )}
+              </div>
+            </main>
+          ))}
+        </section>
       </Container>
+      <Footer />
     </>
   )
 }

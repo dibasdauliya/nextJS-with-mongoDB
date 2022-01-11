@@ -115,7 +115,7 @@ export default function Orders({ user }) {
             </div>
           </main>
           <aside className='self-start'>
-            <div className='border border-violet-600 p-3 w-94 mt-4'>
+            <div className='border border-violet-600 rounded-sm p-3 w-94 mt-4'>
               <h3 className='font-semibold text-xl mb-2'>Your Details</h3>
               <div className='grid gap-2'>
                 <FlexParagraph>
