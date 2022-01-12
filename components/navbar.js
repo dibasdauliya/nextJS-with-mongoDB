@@ -2,9 +2,12 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Container from './container'
 import SearchOverlay from './searchOverlay'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import { FaUser } from 'react-icons/fa'
 
 export default function Navbar() {
   const [showSearch, setShowSearch] = useState(false)
+  const { data: session } = useSession()
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -31,7 +34,7 @@ export default function Navbar() {
             <input
               type='text'
               placeholder='Search'
-              className='px-4 py-2 w-auto lg:w-72 border border-gray-300'
+              className='px-4 py-2 w-auto lg:w-72 border border-gray-300 rounded-sm'
               onFocus={() => setShowSearch(true)}
               onChange={(e) => setShowSearch(e.target.value)}
             />
@@ -40,7 +43,7 @@ export default function Navbar() {
             <li>
               <a
                 href='/#winter-packs'
-                className='hover:bg-violet-700 hover:text-white px-3 py-2 rounded-sm'
+                className='transition-colors hover:bg-violet-700  hover:text-white px-3 py-2 rounded-sm'
               >
                 Winter Packs
               </a>
@@ -48,7 +51,7 @@ export default function Navbar() {
             <li>
               <a
                 href='/#all-products'
-                className='hover:bg-violet-700 hover:text-white px-3 py-2 rounded-sm'
+                className='transition-colors hover:bg-violet-700 hover:text-white px-3 py-2 rounded-sm'
               >
                 All Products
               </a>
@@ -57,6 +60,37 @@ export default function Navbar() {
               <Link href='/orders'>
                 <a>View Orders</a>
               </Link>
+            </li>
+            <li>
+              {session ? (
+                <span className='flex gap-2 items-center px-3 relative'>
+                  <FaUser />
+                  {session.user.name}
+                  <Link href={`/api/auth/signout`}>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault()
+                        signOut()
+                      }}
+                      className='absolute -top-4 right-0 text-xs hover:underline'
+                    >
+                      Sign out
+                    </a>
+                  </Link>
+                </span>
+              ) : (
+                <Link href={`/api/auth/signin`}>
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault()
+                      signIn()
+                    }}
+                    className='px-3 py-2 rounded-sm bg-violet-700 text-white'
+                  >
+                    Sign in
+                  </a>
+                </Link>
+              )}
             </li>
           </ul>
         </nav>

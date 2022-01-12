@@ -31,9 +31,9 @@ async function getFilteredProducts() {
   return final
 }
 
-async function getUserData() {
+async function getUserData(userEmail) {
   await connect()
-  const user = await User.findOne({ email: 'dev@example.com' })
+  const user = await User.findOne({ email: userEmail })
 
   await disconnect()
 

@@ -13,11 +13,14 @@ import { connect, convertDocToObj, disconnect } from '../../utils/db'
 import { getProducts } from '../../utils/getData'
 import { v4 as uuidv4 } from 'uuid'
 import Head from 'next/head'
+import { useSession } from 'next-auth/react'
 
 export default function Slug({ product }) {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+
+  const { data: session } = useSession()
 
   const { title, category, slug, image, price, availableQty, description } =
     JSON.parse(product)
@@ -37,10 +40,19 @@ export default function Slug({ product }) {
     setLoading(true)
 
     try {
-      const { data } = await axios.put('/api/users/addData', {
-        orderItems: [order],
-        email: 'dev@example.com'
-      })
+      if (!session) {
+        const { data } = await axios.put('/api/users/updateData', {
+          orderItems: [order],
+          email: 'dev@example.com'
+        })
+      } else {
+        const { data } = await axios.post('/api/users/updateData', {
+          orderItems: [order],
+          email: session.user.email,
+          name: session.user.name,
+          address: 'Internet'
+        })
+      }
 
       setSuccess(true)
       setTimeout(() => {
@@ -91,6 +103,7 @@ export default function Slug({ product }) {
                 <FlexParagraph>
                   Quantity:
                   <select
+                    className='bg-transparent'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   >
@@ -130,15 +143,19 @@ export default function Slug({ product }) {
             </div>
 
             <div className='border border-violet-600 rounded-sm p-3 w-94 mt-4'>
-              <h3 className='font-semibold text-xl mb-2'>Your Details</h3>
+              <h3 className='font-semibold text-xl mb-2'>
+                {session ? 'Your' : 'Default'} Details
+              </h3>
               <div className='grid gap-2'>
                 <FlexParagraph>
                   <span>Name:</span>
-                  <span>Developer</span>
+                  <span>{session ? session.user.name : 'Developer'}</span>
                 </FlexParagraph>
                 <FlexParagraph>
                   Email:
-                  <span>dev@example.com</span>
+                  <span>
+                    {session ? session.user.email : 'dev@example.com'}
+                  </span>
                 </FlexParagraph>
                 <FlexParagraph>
                   Location:

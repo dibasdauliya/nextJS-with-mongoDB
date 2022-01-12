@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getSession, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,7 +13,9 @@ import Navbar from '../components/navbar'
 import { getUserData } from '../utils/getData'
 
 export default function Orders({ user }) {
-  const { email, name, address, orderItems } = user.user
+  const { name, address, orderItems } = user.user
+
+  const { data: session } = useSession()
 
   const [data, setData] = useState(orderItems || '')
 
@@ -116,19 +119,23 @@ export default function Orders({ user }) {
           </main>
           <aside className='self-start'>
             <div className='border border-violet-600 rounded-sm p-3 w-94 mt-4'>
-              <h3 className='font-semibold text-xl mb-2'>Your Details</h3>
+              <h3 className='font-semibold text-xl mb-2'>
+                {session ? 'Your' : 'Default'} Details
+              </h3>
               <div className='grid gap-2'>
                 <FlexParagraph>
                   <span>Name:</span>
-                  <span>{name}</span>
+                  <span>{session ? session.user.name : 'Developer'}</span>
                 </FlexParagraph>
                 <FlexParagraph>
                   Email:
-                  <span>{email}</span>
+                  <span>
+                    {session ? session.user.email : 'dev@example.com'}
+                  </span>
                 </FlexParagraph>
                 <FlexParagraph>
                   Location:
-                  <span>{address}</span>
+                  <span>Internet</span>
                 </FlexParagraph>
               </div>
             </div>
@@ -140,8 +147,10 @@ export default function Orders({ user }) {
   )
 }
 
-export async function getServerSideProps() {
-  const data = await getUserData()
+export async function getServerSideProps(context) {
+  const email = (await getSession(context)?.user?.email) || 'dev@example.com'
+
+  const data = await getUserData(email)
 
   return {
     props: {
