@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/react'
+
 const { default: User } = require('../models/User')
 const { default: Product } = require('../models/Products')
 const { connect, disconnect, convertDocToObj } = require('./db')

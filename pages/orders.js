@@ -148,9 +148,15 @@ export default function Orders({ user }) {
 }
 
 export async function getServerSideProps(context) {
-  const email = (await getSession(context)?.user?.email) || 'dev@example.com'
+  let data
 
-  const data = await getUserData(email)
+  const session = await getSession(context)
+
+  if (session?.user) {
+    data = await getUserData(session?.user.email)
+  } else {
+    data = await getUserData('dev@example.com')
+  }
 
   return {
     props: {
