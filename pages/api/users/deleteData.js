@@ -9,10 +9,11 @@ handler.put(async (req, res) => {
   const { email, orderItems } = req.body
   const user = await User.findOne({ email })
 
-  user.orderItems = await [...orderItems]
+  user.orderItems = await orderItems
 
   await user.save()
-  res.send('deleted..updated..')
+
+  res.send(user.orderItems)
   await disconnect()
 })
 

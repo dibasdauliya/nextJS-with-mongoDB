@@ -14,8 +14,10 @@ import { getProducts } from '../../utils/getData'
 import { v4 as uuidv4 } from 'uuid'
 import Head from 'next/head'
 import { useSession } from 'next-auth/react'
+import User from '../../models/User'
+import { getCoolUserData } from '../../utils/getCoolUserata'
 
-export default function Slug({ product }) {
+export default function Slug({ product, userData }) {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -39,30 +41,50 @@ export default function Slug({ product }) {
   async function sendOrder() {
     setLoading(true)
 
-    try {
-      if (!session) {
+    if (!session) {
+      try {
         const { data } = await axios.put('/api/users/updateData', {
           orderItems: [order],
           email: 'dev@example.com'
         })
-      } else {
-        const { data } = await axios.post('/api/users/updateData', {
-          orderItems: [order],
-          email: session.user.email,
-          name: session.user.name,
-          address: 'Internet'
-        })
+      } catch (err) {
+        setLoading(false)
+        console.error(err)
       }
-
-      setSuccess(true)
-      setTimeout(() => {
-        setSuccess(false)
-      }, 3000)
-      setLoading(false)
-    } catch (err) {
-      setLoading(false)
-      console.error(err)
+    } else {
+      const isThere = userData.some(
+        ({ data }) => data === getCoolUserData(session.user)
+      )
+      if (isThere) {
+        try {
+          const { data } = await axios.put('/api/users/updateData', {
+            orderItems: [order],
+            email: session.user.email
+          })
+        } catch (error) {
+          setLoading(false)
+          console.error(error)
+        }
+      } else {
+        try {
+          const { data } = await axios.post('/api/users/updateData', {
+            orderItems: [order],
+            email: session.user.email,
+            name: session.user.name,
+            address: 'Internet'
+          })
+        } catch (error) {
+          setLoading(false)
+          console.error(error)
+        }
+      }
     }
+
+    setSuccess(true)
+    setTimeout(() => {
+      setSuccess(false)
+    }, 3000)
+    setLoading(false)
   }
 
   return (
@@ -190,11 +212,17 @@ export async function getStaticProps({ params }) {
 
   await connect()
   const product = await Product.findOne({ slug }).lean()
+  const users = await User.find({}).lean()
+
+  const userData = users?.map((data) => ({
+    data: getCoolUserData(data)
+  }))
 
   await disconnect()
   return {
     props: {
-      product: JSON.stringify(product)
+      product: JSON.stringify(product),
+      userData
     },
     revalidate: 2
   }

@@ -9,7 +9,7 @@ export const data = {
   products: [
     {
       image: '/img/one.jpeg',
-      title: 'Full Sleeve Solid Men Sweatshirt',
+      title: 'Full Sleeve Solid Women Sweatshirt',
       slug: 'men-sweatshirt',
       price: '2750',
       availableQty: 1,

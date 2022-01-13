@@ -25,7 +25,7 @@ export default function Orders({ user }) {
     try {
       const { data } = await axios.put('/api/users/deleteData', {
         orderItems: filter,
-        email: 'dev@example.com'
+        email: session ? session.user.email : 'dev@example.com'
       })
     } catch (error) {
       console.error(error)

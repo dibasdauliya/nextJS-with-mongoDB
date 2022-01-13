@@ -1,6 +1,5 @@
-import { useSession } from 'next-auth/react'
+import User from '../models/User'
 
-const { default: User } = require('../models/User')
 const { default: Product } = require('../models/Products')
 const { connect, disconnect, convertDocToObj } = require('./db')
 
@@ -35,7 +34,7 @@ async function getFilteredProducts() {
 
 async function getUserData(userEmail) {
   await connect()
-  const user = await User.findOne({ email: userEmail })
+  const user = await User.findOne({ email: userEmail }).lean()
 
   await disconnect()
 
