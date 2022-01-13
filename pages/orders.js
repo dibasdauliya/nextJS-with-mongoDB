@@ -10,6 +10,7 @@ import Container from '../components/container'
 import FlexParagraph from '../components/flexParagraph'
 import Footer from '../components/footer'
 import Navbar from '../components/navbar'
+import { formatDate } from '../utils/formatDate'
 import { getUserData } from '../utils/getData'
 
 export default function Orders({ user }) {
@@ -62,7 +63,8 @@ export default function Orders({ user }) {
                     slug,
                     category,
                     id,
-                    delivered
+                    delivered,
+                    date
                   }) => (
                     <div
                       key={id}
@@ -90,7 +92,7 @@ export default function Orders({ user }) {
                             .join('-')
                             .toLowerCase()}/${slug}`}
                         >
-                          <a className='hover:underline max-w-[18ch] lg:max-w-[60ch]'>
+                          <a className='hover:underline text-base lg:text-xl'>
                             {title}
                           </a>
                         </Link>
@@ -98,6 +100,7 @@ export default function Orders({ user }) {
                         <span>
                           Price: ${(quantity * price).toLocaleString() || ''}
                         </span>
+                        <span>Ordered at: {formatDate(date) || ''}</span>
                         <span>
                           Delivery status:{' '}
                           {delivered ? 'Delivered' : 'Not Delivered'}
@@ -105,7 +108,7 @@ export default function Orders({ user }) {
                       </div>
                       <button
                         onClick={(_) => handleDelete(id)}
-                        className='ml-auto flex justify-center items-center p-2 text-violet-700 bg-violet-100 self-start rounded-full w-12 h-12'
+                        className='ml-auto flex justify-center items-center p-2 text-violet-700 bg-violet-100 self-start rounded-full w-12 h-12 flex-shrink-0'
                       >
                         <FaTrash />
                       </button>

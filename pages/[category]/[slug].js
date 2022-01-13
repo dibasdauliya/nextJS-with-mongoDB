@@ -35,7 +35,8 @@ export default function Slug({ product, userData }) {
     slug,
     category,
     id: uuidv4(),
-    delivered: false
+    delivered: false,
+    date: new Date()
   }
 
   async function sendOrder() {
@@ -208,7 +209,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { slug, category } = params
+  const { slug } = params
 
   await connect()
   const product = await Product.findOne({ slug }).lean()

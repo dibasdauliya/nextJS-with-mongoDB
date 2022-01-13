@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Container from '../components/container'
 import Footer from '../components/footer'
 import { convertDocToObj } from '../utils/db'
+import { formatDate } from '../utils/formatDate'
 import { getAllUsers } from '../utils/getData'
 
 const Orders = ({
@@ -18,7 +19,8 @@ const Orders = ({
   price,
   _id,
   id,
-  delivered
+  delivered,
+  date
 }) => {
   const [isDelivered, setDelivered] = useState({})
 
@@ -51,18 +53,15 @@ const Orders = ({
           />
         </a>
       </Link>
-      <div className='grid gap-1 self-start'>
+      <div className='grid gap-1 self-start font-semibold'>
         <Link href={`/${category.split(' ').join('-').toLowerCase()}/${slug}`}>
-          <a className='hover:underline font-semibold max-w-[18ch] lg:max-w-[60ch]'>
-            {title}
-          </a>
+          <a className='hover:underline text-base lg:text-xl'>{title}</a>
         </Link>
-        <span className='font-semibold'>Quantity: {quantity}</span>
-        <span className='font-semibold'>
-          Price: ${(quantity * price).toLocaleString() || ''}
-        </span>
+        <span>Quantity: {quantity}</span>
+        <span>Price: ${(quantity * price).toLocaleString() || ''}</span>
+        <span>Ordered at: {formatDate(date) || ''}</span>
       </div>
-      <form className='ml-auto flex  items-start'>
+      <form className='ml-auto flex items-start flex-shrink-0'>
         <label htmlFor='tick'>Mark as Delivered</label>
         <input
           type='checkbox'
@@ -84,7 +83,7 @@ export default function Admin({ data }) {
       </Head>
       <Container>
         <header className='my-12 text-center'>
-          <h1 className='text-3xl font-bold'>Admin Panel</h1>
+          <h1 className='text-3xl font-bold mb-2'>Admin Panel</h1>
           <strong>Total User(s): {data?.length}</strong>
         </header>
         <section className='min-h-[60vh]'>
@@ -113,6 +112,7 @@ export default function Admin({ data }) {
                       slug,
                       category,
                       id,
+                      date,
                       delivered
                     },
                     idx
@@ -130,6 +130,7 @@ export default function Admin({ data }) {
                         _id={_id}
                         idx={idx}
                         key={id}
+                        date={date}
                       />
                     )
                   }

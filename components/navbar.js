@@ -39,7 +39,7 @@ export default function Navbar() {
               onChange={(e) => setShowSearch(e.target.value)}
             />
           </div>
-          <ul className='flex gap-4'>
+          <ul className='flex flex-wrap gap-8 lg:gap-4'>
             <li>
               <a
                 href='/#winter-packs'
