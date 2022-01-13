@@ -145,7 +145,22 @@ export default function Admin({ data }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  /* Giving access to all in this demo, but I would check session.user.email. Then if it is my email, I would give access to the page, otherwise I would redirect to the login page. */
+
+  // const session = await getSession(context)
+
+  // if (session?.user) {
+  //   const { email } = session?.user
+  //   if (
+  //     email !== "myemail"
+  //   ) {
+  //     return { redirect: { destination: '/auth/signin', permanent: false } }
+  //   }
+  // } else {
+  //   return { redirect: { destination: '/auth/signin', permanent: false } }
+  // }
+
   const data = await getAllUsers()
   return {
     props: { data: data.map((data) => convertDocToObj(data)) }
